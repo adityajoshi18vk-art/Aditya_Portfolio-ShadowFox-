@@ -337,13 +337,16 @@ body {
 }
 
 .badge {
-    background: #22c55e;
-    /* Vibrant Green */
+    background: var(--primary-dark);
     padding: 0.3rem 0.8rem;
     border-radius: 1rem;
     font-size: 0.7rem;
     color: white;
     transition: background 0.3s ease;
+}
+
+.badge-green {
+    background: #22c55e !important;
 }
 
 .badge-group {
