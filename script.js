@@ -107,6 +107,15 @@ contactForm.addEventListener("submit", (e) => {
     formStatus.textContent = "";
     formStatus.style.color = "";
 
+    // Diagnostic: Check if keys are still placeholders
+    if (EMAILJS_PUBLIC_KEY === "YOUR_PUBLIC_KEY" || EMAILJS_SERVICE_ID === "YOUR_SERVICE_ID") {
+        formStatus.textContent = "⚠️ Please set up your EmailJS credentials in script.js to enable the form.";
+        formStatus.style.color = "#fbbf24";
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send Message →";
+        return;
+    }
+
     emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, contactForm)
         .then(() => {
             formStatus.textContent = "✅ Message sent successfully! I'll get back to you soon.";
@@ -114,9 +123,9 @@ contactForm.addEventListener("submit", (e) => {
             contactForm.reset();
         })
         .catch((error) => {
-            formStatus.textContent = "❌ Failed to send message. Please try again or email me directly.";
-            formStatus.style.color = "#f87171";
             console.error("EmailJS Error:", error);
+            formStatus.textContent = "❌ Failed to send message. Please ensure your Service & Template IDs are correct.";
+            formStatus.style.color = "#f87171";
         })
         .finally(() => {
             submitBtn.disabled = false;
